@@ -1,23 +1,40 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Product from './Product';
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
-  const loaded = useRef(false);
+  const [load, setLoad] = useState(false);
+
+  function handleClick() {
+    setLoad(true);
+  }
+
+  useEffect(() => {
+    console.info(`Call Use Effect with []`);
+  }, []);
 
   useEffect(() => {
     console.info('Call Use Effect');
-    if (loaded.current === false) {
-      fetch('/products.json')
-        .then(response => response.json())
-        .then(data => setProducts(data))
-        .then(() => (loaded.current = true));
+
+    async function fetchProducts() {
+      const response = await fetch('/products.json');
+      const data = await response.json();
+      setProducts(data);
     }
-  });
+
+    if (load) {
+      fetchProducts();
+    }
+
+    return () => {
+      console.info('Product List Component Unmounted');
+    };
+  }, [load]);
 
   return (
     <>
       <h1>Product List</h1>
+      <button onClick={handleClick}>Click Me</button>
       {products.map(product => (
         <Product product={product} key={product.id} />
       ))}
