@@ -5,6 +5,8 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 import Layout from './components/Layout.jsx';
 import UserRegister from './components/User/UserRegister.jsx';
 import UserLogin from './components/User/UserLogin.jsx';
+import DashboardLayout from './components/DashboardLayout.jsx';
+import UserProfile from './components/User/UserProfile.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,7 +19,10 @@ createRoot(document.getElementById('root')).render(
         </Route>
 
         {/* rpivate Route */}
-        <Route path="/dashboard"></Route>
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route path="contacts" element={<div>Contacts</div>} />
+          <Route path="users/profile" element={<UserProfile />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   </StrictMode>
