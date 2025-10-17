@@ -12,6 +12,7 @@ import ContactCreate from './components/Contact/ContactCreate.jsx';
 import ContactList from './components/Contact/ContactList.jsx';
 import ContactEdit from './components/Contact/ContactEdit.jsx';
 import ContactDetail from './components/Contact/ContactDetail.jsx';
+import AddressCreate from './components/Address/AddressCreate.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -30,10 +31,15 @@ createRoot(document.getElementById('root')).render(
             <Route path="logout" element={<UserLogout />} />
           </Route>
           <Route path="contacts">
-            <Route path="create" element={<ContactCreate />} />
             <Route path="list" element={<ContactList />} />
-            <Route path=":id/edit" element={<ContactEdit />} />
-            <Route path=":id" element={<ContactDetail />} />
+            <Route path="create" element={<ContactCreate />} />
+            <Route path=":id">
+              <Route index element={<ContactDetail />} />
+              <Route path=":id/edit" element={<ContactEdit />} />
+              <Route path="address">
+                <Route path="create" element={<AddressCreate />} />
+              </Route>
+            </Route>
           </Route>
         </Route>
       </Routes>
