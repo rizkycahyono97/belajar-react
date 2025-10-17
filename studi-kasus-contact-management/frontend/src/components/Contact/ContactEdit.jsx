@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router';
 import { contactDetail, contactUpdate } from '../../lib/api/ContactApi';
 import { alertError, alertSuccess } from '../../lib/alert';
 import { useEffectOnce, useLocalStorage } from 'react-use';
+import { addressList } from '../../lib/api/AddressApi';
 
 export default function ContactEdit() {
   const { id } = useParams();
