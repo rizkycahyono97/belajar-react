@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { contactDetail } from '../../lib/api/ContactApi';
-import { alertError, alertSuccess } from '../../lib/alert';
+import { alertConfirm, alertError, alertSuccess } from '../../lib/alert';
 import { useEffectOnce, useLocalStorage } from 'react-use';
 import { addressDelete, addressList } from '../../lib/api/AddressApi';
 
 export default function ContactDetail() {
   const { id } = useParams();
-  const [contact, setContact] = useState('');
+  const [contact, setContact] = useState({});
   const [token, _] = useLocalStorage('token', '');
   const [addresses, setAddresses] = useState([]);
 
@@ -36,12 +36,12 @@ export default function ContactDetail() {
   }
 
   async function handleDeleteAddress(addressId) {
-    if (!(await alertError('Are you sure to delete this address'))) {
+    if (!(await alertConfirm('Are you sure to delete this address'))) {
       return;
     }
 
     const response = await addressDelete(token, id, addressId);
-    const responseBody = response.json();
+    const responseBody = await response.json();
     console.log(responseBody);
 
     if (response.status == 200) {
@@ -64,7 +64,7 @@ export default function ContactDetail() {
       <main className="container mx-auto px-4 py-8 flex-grow">
         <div className="flex items-center mb-6">
           <Link
-            href="dashboard.html"
+            to="/dashboard/contacts"
             className="text-blue-400 hover:text-blue-300 mr-4 flex items-center transition-colors duration-200"
           >
             <i className="fas fa-arrow-left mr-2" /> Back to Contacts
