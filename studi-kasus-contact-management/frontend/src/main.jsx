@@ -15,6 +15,7 @@ import ContactDetail from './components/Contact/ContactDetail.jsx';
 import AddressCreate from './components/Address/AddressCreate.jsx';
 import AddressEdit from './components/Address/AddressEdit.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import NotFound from './components/NotFound.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/register" element={<UserRegister />} />
           <Route path="/login" element={<UserLogin />} />
           <Route path="/" element={<UserLogin />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
 
         {/* rpivate Route */}
@@ -33,6 +35,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="users">
               <Route path="profile" element={<UserProfile />} />
               <Route path="logout" element={<UserLogout />} />
+              <Route path="*" element={<NotFound />} />
             </Route>
             <Route path="contacts">
               <Route index element={<ContactList />} />
