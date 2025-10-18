@@ -13,7 +13,6 @@ export default function ContactListPage() {
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [contacts, setContacts] = useState([]);
-  const [reload, setReload] = useState(false);
   const [inSearchVisible, setInSearchVisible] = useState(false);
 
   async function fetchContacts() {
