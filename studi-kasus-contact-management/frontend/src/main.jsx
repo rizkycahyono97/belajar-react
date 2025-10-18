@@ -9,14 +9,13 @@ import DashboardLayout from './components/DashboardLayout.jsx';
 import UserProfile from './components/User/UserProfile.jsx';
 import UserLogout from './components/User/UserLogout.jsx';
 import ContactDetail from './components/Contact/ContactDetail.jsx';
-import AddressCreate from './components/Address/AddressCreate.jsx';
-import AddressEdit from './components/Address/AddressEdit.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import NotFound from './components/NotFound.jsx';
 import ContactListPage from './pages/Contact/ContactListPage.jsx';
 import ContactCreatePage from './pages/Contact/ContactCreatePage.jsx';
 import ContactEditPage from './pages/Contact/ContactEditPage.jsx';
 import AddressCreatePage from './pages/Address/AddressCreatePage.jsx';
+import AddressEditPage from './pages/Address/AddressEditPage.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -46,7 +45,7 @@ createRoot(document.getElementById('root')).render(
                 <Route path="edit" element={<ContactEditPage />} />
                 <Route path="addresses">
                   <Route path="create" element={<AddressCreatePage />} />
-                  <Route path=":addressId/edit" element={<AddressEdit />} />
+                  <Route path=":addressId/edit" element={<AddressEditPage />} />
                 </Route>
               </Route>
             </Route>

@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 import { useLocalStorage } from 'react-use';
 import { contactDetail } from '../../lib/api/ContactApi';
-import { addressDetail } from '../../lib/api/AddressApi';
-import AddressEdit from '../../components/Address/AddressEdit';
+import { addressDetail, addressUpdate } from '../../lib/api/AddressApi';
 import { alertError, alertSuccess } from '../../lib/alert';
 import AddressForm from '../../components/Address/AddressForm';
 
@@ -17,21 +16,34 @@ export default function AddressEditPage() {
 
   useEffect(() => {
     async function fetchData() {
-      const contactResp = await contactDetail(token, id);
-      const contactRespBody = await contactResp.json();
-      if (contactResp.ok) setContact(contactRespBody.data);
+      try {
+        const contactResp = await contactDetail(token, id);
+        const contactRespBody = await contactResp.json();
+        if (contactResp.ok) setContact(contactRespBody.data);
 
-      const addrResp = await addressDetail(token, id, addressId);
-      const addrRespBody = await addrResp.json();
-      if (addrRespBody.ok) setAddress(addrRespBody.data);
+        const addrResp = await addressDetail(token, id, addressId);
+        const addrRespBody = await addrResp.json();
+
+        // PERBAIKAN UTAMA: Periksa 'addrResp.ok'
+        if (addrResp.ok) {
+          setAddress(addrRespBody.data);
+        } else {
+          await alertError('Failed to load address data.');
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
+      }
     }
     fetchData();
   }, [id, addressId, token]);
 
   async function handleUpdateSubmit(formData) {
-    setIsSubmitting(false);
+    setIsSubmitting(true);
     try {
-      const response = await AddressEdit(token, id, { addressId, ...formData });
+      const response = await addressUpdate(token, id, {
+        addressId,
+        ...formData
+      });
       const responseBody = await response.json();
 
       if (response.ok) {
@@ -40,6 +52,8 @@ export default function AddressEditPage() {
       } else {
         await alertError(responseBody.errors);
       }
+    } catch (error) {
+      console.error('Update error:', error);
     } finally {
       setIsSubmitting(false);
     }
