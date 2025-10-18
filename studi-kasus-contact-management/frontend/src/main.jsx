@@ -16,6 +16,7 @@ import NotFound from './components/NotFound.jsx';
 import ContactListPage from './pages/Contact/ContactListPage.jsx';
 import ContactCreatePage from './pages/Contact/ContactCreatePage.jsx';
 import ContactEditPage from './pages/Contact/ContactEditPage.jsx';
+import AddressCreatePage from './pages/Address/AddressCreatePage.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -44,7 +45,7 @@ createRoot(document.getElementById('root')).render(
                 <Route index element={<ContactDetail />} />
                 <Route path="edit" element={<ContactEditPage />} />
                 <Route path="addresses">
-                  <Route path="create" element={<AddressCreate />} />
+                  <Route path="create" element={<AddressCreatePage />} />
                   <Route path=":addressId/edit" element={<AddressEdit />} />
                 </Route>
               </Route>
