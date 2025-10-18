@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 import { useEffectOnce, useLocalStorage } from 'react-use';
 import { useState } from 'react';
 import { addressDetail, addressUpdate } from '../../lib/api/AddressApi.js';
@@ -14,6 +14,7 @@ export default function AddressEdit() {
   const [province, setProvince] = useState('');
   const [country, setCountry] = useState('');
   const [postal_code, setPostalCode] = useState('');
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -31,6 +32,9 @@ export default function AddressEdit() {
 
     if (response.status === 200) {
       await alertSuccess('Address updated successfully');
+      navigate({
+        pathname: `/dashboard/contacts/${id}`
+      });
     } else {
       await alertError(responseBody.errors);
     }

@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Link, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 import { contactDetail, contactUpdate } from '../../lib/api/ContactApi';
 import { alertError, alertSuccess } from '../../lib/alert';
 import { useEffectOnce, useLocalStorage } from 'react-use';
-import { addressList } from '../../lib/api/AddressApi';
 
 export default function ContactEdit() {
   const { id } = useParams();
@@ -12,6 +11,7 @@ export default function ContactEdit() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [token, _] = useLocalStorage('token', '');
+  const navigate = useNavigate();
 
   async function fetchContact() {
     const response = await contactDetail(token, id);
@@ -43,6 +43,9 @@ export default function ContactEdit() {
 
     if (response.status == 200) {
       await alertSuccess('user updated successfully');
+      navigate({
+        pathname: `/dashboard/contacts/${id}`
+      });
     } else {
       await alertError(responseBody.errors);
     }

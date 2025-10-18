@@ -3,7 +3,7 @@ import { Link, Outlet } from 'react-router';
 export default function DashboardLayout() {
   return (
     <>
-      <div>
+      <div className="flex flex-col min-h-screen">
         <header className="bg-gradient shadow-lg">
           <div className="container mx-auto px-4 py-4 flex justify-between items-center">
             <Link
@@ -39,8 +39,9 @@ export default function DashboardLayout() {
             </nav>
           </div>
         </header>
+
         <main className="container mx-auto px-4 py-8 flex-grow">
-          {/* outlet */}
+          {/* main content */}
           <Outlet />
 
           <div className="mt-10 mb-6 text-center text-gray-400 text-sm animate-fade-in">

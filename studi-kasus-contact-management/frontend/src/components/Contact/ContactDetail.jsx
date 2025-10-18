@@ -189,7 +189,7 @@ export default function ContactDetail() {
               ))}
 
               {/* address create */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
                 <div className="bg-gray-700 bg-opacity-50 p-5 rounded-lg border-2 border-dashed border-gray-600 shadow-md card-hover">
                   <Link
                     to={`/dashboard/contacts/${id}/addresses/create`}
@@ -207,9 +207,11 @@ export default function ContactDetail() {
                 </div>
               </div>
             </div>
+
+            {/* button */}
             <div className="flex justify-end space-x-4">
               <Link
-                href="/dashboard/contacts"
+                to="/dashboard/contacts"
                 className="px-5 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 flex items-center shadow-md"
               >
                 <i className="fas fa-arrow-left mr-2" /> Back
